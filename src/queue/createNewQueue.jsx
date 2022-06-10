@@ -12,7 +12,7 @@ const RCreateNewQueue = ({ allSubjects, cancelHandler, creationHandler }) => {
           <Button size="l" mode="secondary" appearance="positive" onClick={() => creationHandler(pickedSubject, pickedDate)}>Создать</Button>
           <Button size="l" mode="secondary" appearance="negative" onClick={() => cancelHandler(false)}>Отменить</Button>
         </>
-      } header={<Header>Давааай, создаваай</Header>} style={{ position: 'absolute', top: '-50%' }} id="modal">
+      } header={<Header>Давааай, создаваай</Header>} style={{ position: 'absolute', top: '-75%' }} id="modal">
         <FormLayout>
           <FormItem top="Предмет">
             <Select placeholder="Выберите предмет" options={allSubjects} onChange={(e) => setPickedSubject(e.target.value)} />

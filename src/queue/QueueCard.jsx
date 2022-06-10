@@ -27,7 +27,7 @@ const RQueueCard = ({ cardInfo, isSubscripted, btnHandler, headerBackHandler }) 
         })}
       </Group>
       {modalOpen ?
-        <div style={{ position: 'absolute', backgroundColor: 'rgba(0, 0, 0, 0.5)', width: '100%', height: '100vh', top: 0, }}>
+        <div style={{ position: 'absolute', backgroundColor: 'rgba(0, 0, 0, 0.5)', width: '100%', height: '100vh', top: 0, left: 0}}>
           <ModalCard actions={
             <>
               <Button size="l" mode="secondary" onClick={() => setModalOpen(null)}>Закрыть</Button>
