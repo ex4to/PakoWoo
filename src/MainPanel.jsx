@@ -1,4 +1,15 @@
-import { Panel, Gradient, Avatar, PanelHeader, Group, Separator, CellButton, Title, Header } from '@vkontakte/vkui';
+import React from "react";
+
+import {
+  Gradient,
+  Avatar,
+  PanelHeader,
+  Group,
+  Separator,
+  CellButton,
+  Title,
+  Header,
+} from "@vkontakte/vkui";
 
 const MainPanel = ({ user, handler }) => {
   return (
@@ -28,10 +39,12 @@ const MainPanel = ({ user, handler }) => {
       </Group>
       <Group header={<Header mode="secondary">Меню</Header>}>
         <Separator />
-        <CellButton centered onClick={() => handler('second')}>Очереди</CellButton>
+        <CellButton centered onClick={() => handler("second")}>
+          Очереди
+        </CellButton>
       </Group>
     </>
-  )
-}
+  );
+};
 
 export default MainPanel;

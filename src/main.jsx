@@ -1,14 +1,10 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
-import App from './App'
+import React from "react";
+import ReactDOM from "react-dom";
+import bridge from "@vkontakte/vk-bridge";
+import { AdaptivityProvider, ConfigProvider } from "@vkontakte/vkui";
+import App from "./App";
 
-import {
-  AdaptivityProvider,
-  ConfigProvider
-} from '@vkontakte/vkui';
-import bridge from '@vkontakte/vk-bridge';
 import "@vkontakte/vkui/dist/vkui.css";
-
 
 bridge.send("VKWebAppInit", {});
 
@@ -20,5 +16,5 @@ ReactDOM.render(
       </AdaptivityProvider>
     </ConfigProvider>
   </React.StrictMode>,
-  document.getElementById('root')
+  document.getElementById("root")
 );
