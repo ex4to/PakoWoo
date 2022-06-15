@@ -23,8 +23,7 @@ const App = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const userVK = await bridge.send("VKWebAppGetUserInfo");
-      setUser(userVK);
+      setUser(await bridge.send("VKWebAppGetUserInfo"));
       setPopout(null);
     };
     fetchData();

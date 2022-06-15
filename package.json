@@ -9,11 +9,13 @@
     "deploy": "vk-miniapps-deploy"
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^1.8.2",
     "@vkontakte/icons": "^1.165.0",
     "@vkontakte/vk-bridge": "^2.6.1",
     "@vkontakte/vkui": "^4.31.0",
     "react": "^17.0.2",
-    "react-dom": "^17.0.2"
+    "react-dom": "^17.0.2",
+    "react-redux": "^8.0.2"
   },
   "devDependencies": {
     "@types/react": "^17.0.0",

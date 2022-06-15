@@ -62,12 +62,10 @@ const QueuePanel = ({ handler, userInfo }) => {
   const queueBackHandler = () => setSelectedItem(null);
   const createNewQueue = (subject, date) => {
     const arr = allQueues; // fetch data
-    const baza = arr.findIndex(
-      (a) => a.foo === newElem.foo && a.bar === newElem.bar
-    );
+    const baza = arr.findIndex((a) => a.subject === subject && a.date === date);
     if (baza === -1) {
       arr.push({
-        id: arr.reduce((a, b) => (a > b.id ? a : b.id), arr[0].id),
+        id: Date.now(),
         subject,
         date,
         participants: [userName],
@@ -130,10 +128,8 @@ const QueuePanel = ({ handler, userInfo }) => {
           Доступные
         </TabsItem>
       </Tabs>
-      {selectedItem ? (
-        ""
-      ) : selectedTab === "one" ? (
-        <Group>
+      {selectedTab === "one" ? (
+        <Group hidden={selectedItem}>
           <RSubscripted
             subArray={subsciptedQueues}
             itemSetter={(e) => {
@@ -143,7 +139,7 @@ const QueuePanel = ({ handler, userInfo }) => {
           />
         </Group>
       ) : (
-        <Group>
+        <Group hidden={selectedItem}>
           <RAvailable
             subArray={availableQueues}
             itemSetter={(e) => {
@@ -153,7 +149,7 @@ const QueuePanel = ({ handler, userInfo }) => {
           />
         </Group>
       )}
-      {!selectedItem ? (
+      {!selectedItem && (
         <div
           style={{
             position: "absolute",
@@ -172,27 +168,21 @@ const QueuePanel = ({ handler, userInfo }) => {
             Создать очередь
           </Button>
         </div>
-      ) : (
-        ""
       )}
-      {isCreatingNewQueue ? (
+      {isCreatingNewQueue && (
         <RCreateNewQueue
           allSubjects={allSubjects}
           creationHandler={(subject, date) => createNewQueue(subject, date)}
           cancelHandler={() => setIsCreatingNewQueue(false)}
         />
-      ) : (
-        ""
       )}
-      {selectedItem ? (
+      {selectedItem && (
         <RQueueCard
           cardInfo={selectedItem}
           isSubscripted={isSubscripted}
           btnHandler={(bool) => queueCardHandler(bool)}
           headerBackHandler={() => queueBackHandler()}
         />
-      ) : (
-        ""
       )}
     </>
   );
