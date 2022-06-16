@@ -14,7 +14,7 @@ const MainPanel = ({ user, handler }) => {
   return (
     <>
       <PanelHeader>Wolf Await</PanelHeader>
-      <Group>
+      <Group separator="hide">
         <Gradient
           style={{
             margin: "-7px -7px 0 -7px",
