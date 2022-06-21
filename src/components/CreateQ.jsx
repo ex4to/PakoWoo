@@ -9,7 +9,7 @@ import {
   Input,
 } from "@vkontakte/vkui";
 
-const RCreateNewQueue = ({ allSubjects, cancelHandler, creationHandler }) => {
+const CreateQ = ({ allSubjects, cancelHandler, creationHandler }) => {
   const [pickedSubject, setPickedSubject] = useState("");
   const [pickedDate, setPickedDate] = useState("");
 
@@ -68,4 +68,4 @@ const RCreateNewQueue = ({ allSubjects, cancelHandler, creationHandler }) => {
   );
 };
 
-export default RCreateNewQueue;
+export { CreateQ };

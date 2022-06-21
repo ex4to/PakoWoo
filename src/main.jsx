@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import bridge from "@vkontakte/vk-bridge";
-import { AdaptivityProvider, ConfigProvider } from "@vkontakte/vkui";
+import { AdaptivityProvider, ConfigProvider, AppRoot } from "@vkontakte/vkui";
 import App from "./App";
 
 import "@vkontakte/vkui/dist/vkui.css";
@@ -12,7 +12,9 @@ ReactDOM.render(
   <React.StrictMode>
     <ConfigProvider>
       <AdaptivityProvider>
-        <App />
+        <AppRoot>
+          <App />
+        </AppRoot>
       </AdaptivityProvider>
     </ConfigProvider>
   </React.StrictMode>,

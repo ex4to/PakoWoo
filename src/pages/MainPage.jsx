@@ -10,7 +10,7 @@ import {
   Header,
 } from "@vkontakte/vkui";
 
-const MainPanel = ({ user, handler }) => {
+const MainPage = ({ userInfo, switchPagesHandler }) => {
   return (
     <>
       <PanelHeader>Wolf Await</PanelHeader>
@@ -26,19 +26,19 @@ const MainPanel = ({ user, handler }) => {
             padding: 32,
           }}
         >
-          <Avatar size={100} src={user?.photo_100} />
+          <Avatar size={100} src={userInfo?.photo_100} />
           <Title
             style={{ marginBottom: 8, marginTop: 20 }}
             level="2"
             weight="2"
           >
-            {user?.first_name} {user?.last_name}
+            {userInfo?.first_name} {userInfo?.last_name}
           </Title>
         </Gradient>
       </Group>
       <Group header={<Header mode="secondary">Меню</Header>}>
         <Separator />
-        <CellButton centered onClick={() => handler("second")}>
+        <CellButton centered onClick={() => switchPagesHandler("second")}>
           Очереди
         </CellButton>
       </Group>
@@ -46,4 +46,4 @@ const MainPanel = ({ user, handler }) => {
   );
 };
 
-export default MainPanel;
+export { MainPage };

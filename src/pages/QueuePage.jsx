@@ -7,13 +7,12 @@ import {
   Group,
   Button,
 } from "@vkontakte/vkui";
-import RSubscripted from "./queue/Subscripted";
-import RAvailable from "./queue/Available";
-import RQueueCard from "./queue/QueueCard";
-import RCreateNewQueue from "./queue/createNewQueue";
-import "./assets/queue.css";
+import { ListOfQ } from "../components/ListOfQ";
+import {SelectedQ} from "../components/SelectedQ";
+import {CreateQ} from "../components/CreateQ";
+import "../assets/queue.css";
 
-const QueuePanel = ({ handler, userInfo }) => {
+const QueuePage = ({ switchPagesHandler, userInfo }) => {
   const [selectedTab, setSelectedTab] = useState("one");
   const [userName, setUserName] = useState("");
   const [allSubjects, setAllSubjects] = useState([]);
@@ -87,7 +86,9 @@ const QueuePanel = ({ handler, userInfo }) => {
 
   return (
     <>
-      <PanelHeader left={<PanelHeaderBack onClick={() => handler("main")} />}>
+      <PanelHeader
+        left={<PanelHeaderBack onClick={() => switchPagesHandler("main")} />}
+      >
         Очереди
       </PanelHeader>
       <Tabs hidden={selectedItem}>
@@ -106,7 +107,7 @@ const QueuePanel = ({ handler, userInfo }) => {
       </Tabs>
       {selectedTab === "one" ? (
         <Group hidden={selectedItem}>
-          <RSubscripted
+          <ListOfQ
             subArray={subsciptedQueues}
             itemSetter={(e) => {
               setSelectedItem(e);
@@ -116,7 +117,7 @@ const QueuePanel = ({ handler, userInfo }) => {
         </Group>
       ) : (
         <Group hidden={selectedItem}>
-          <RAvailable
+          <ListOfQ
             subArray={availableQueues}
             itemSetter={(e) => {
               setSelectedItem(e);
@@ -137,14 +138,14 @@ const QueuePanel = ({ handler, userInfo }) => {
         </div>
       )}
       {isCreatingNewQueue && (
-        <RCreateNewQueue
+        <CreateQ
           allSubjects={allSubjects}
           creationHandler={(subject, date) => createNewQueue(subject, date)}
           cancelHandler={() => setIsCreatingNewQueue(false)}
         />
       )}
       {selectedItem && (
-        <RQueueCard
+        <SelectedQ
           cardInfo={selectedItem}
           isSubscripted={isSubscripted}
           btnHandler={(bool) => queueCardHandler(bool)}
@@ -154,4 +155,5 @@ const QueuePanel = ({ handler, userInfo }) => {
     </>
   );
 };
-export default QueuePanel;
+
+export { QueuePage };

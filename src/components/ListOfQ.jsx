@@ -1,7 +1,7 @@
 import React from "react";
 import { Cell } from "@vkontakte/vkui";
 
-const RAvailable = ({ subArray, itemSetter }) => {
+const ListOfQ = ({ subArray, itemSetter }) => {
   return subArray.map((val) => (
     <Cell key={val.id} onClick={() => itemSetter(val)}>
       {val.subject} - {val.date}
@@ -9,4 +9,4 @@ const RAvailable = ({ subArray, itemSetter }) => {
   ));
 };
 
-export default RAvailable;
+export { ListOfQ };

@@ -11,7 +11,7 @@ import {
   PanelHeaderBack,
 } from "@vkontakte/vkui";
 
-const RQueueCard = ({
+const SelectedQ = ({
   cardInfo,
   isSubscripted,
   btnHandler,
@@ -96,4 +96,4 @@ const RQueueCard = ({
   );
 };
 
-export default RQueueCard;
+export { SelectedQ };

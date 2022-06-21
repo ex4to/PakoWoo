@@ -1,19 +1,17 @@
 import React, { useState, useEffect } from "react";
-import bridge from "@vkontakte/vk-bridge";
+import usersSevice from "./services/usersService";
 
 import {
   useAdaptivity,
-  AppRoot,
   SplitLayout,
   SplitCol,
   ViewWidth,
   View,
   Panel,
-  PanelHeader,
   ScreenSpinner,
 } from "@vkontakte/vkui";
-import MainPanel from "./MainPanel";
-import QueuePanel from "./QueuePanel";
+import { MainPage } from "./pages/MainPage";
+import { QueuePage } from "./pages/QueuePage";
 
 const App = () => {
   const [user, setUser] = useState(null);
@@ -21,32 +19,30 @@ const App = () => {
   const [popout, setPopout] = useState(<ScreenSpinner size="large" />);
   const [selectedPanel, setSelectedPanel] = useState("main");
 
-  useEffect(() => {
-    const fetchData = async () => {
-      setUser(await bridge.send("VKWebAppGetUserInfo"));
-      setPopout(null);
-    };
-    fetchData();
+  useEffect(async () => {
+    setUser(await usersSevice.getVKUserInfo());
+    setPopout(null);
   }, []);
 
   return (
-    <AppRoot>
-      <SplitLayout popout={popout} header={<PanelHeader separator={false} />}>
-        <SplitCol spaced={viewWidth && viewWidth > ViewWidth.MOBILE}>
-          <View activePanel={selectedPanel}>
-            <Panel id="main">
-              <MainPanel user={user} handler={(e) => setSelectedPanel(e)} />
-            </Panel>
-            <Panel id="second">
-              <QueuePanel
-                handler={(e) => setSelectedPanel(e)}
-                userInfo={user}
-              />
-            </Panel>
-          </View>
-        </SplitCol>
-      </SplitLayout>
-    </AppRoot>
+    <SplitLayout popout={popout}>
+      <SplitCol spaced={viewWidth && viewWidth > ViewWidth.MOBILE}>
+        <View activePanel={selectedPanel}>
+          <Panel id="main">
+            <MainPage
+              userInfo={user}
+              switchPagesHandler={(e) => setSelectedPanel(e)}
+            />
+          </Panel>
+          <Panel id="second">
+            <QueuePage
+              switchPagesHandler={(e) => setSelectedPanel(e)}
+              userInfo={user}
+            />
+          </Panel>
+        </View>
+      </SplitCol>
+    </SplitLayout>
   );
 };
 
