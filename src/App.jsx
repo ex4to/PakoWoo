@@ -20,7 +20,7 @@ const App = () => {
   const [selectedPanel, setSelectedPanel] = useState("main");
 
   useEffect(async () => {
-    setUser(await usersSevice.getVKUserInfo());
+    setUser(await usersSevice.getVKUserInfo()) ;
     setPopout(null);
   }, []);
 
