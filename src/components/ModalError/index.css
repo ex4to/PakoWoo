@@ -1,0 +1,16 @@
+.modal-container {
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.5);
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+}
+
+.modal-card {
+  position: relative;
+}
+
+.modal-text {
+  text-align: center;
+  padding: 4px 0;
+}
