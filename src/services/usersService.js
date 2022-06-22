@@ -1,10 +1,6 @@
 import bridge from "@vkontakte/vk-bridge";
 
 class UsersService {
-  /**
-   * @description get Info about user by using VKBridge
-   * @returns VK User Object
-   */
   async getVKUserInfo() {
     const fetchedUser = await bridge.send("VKWebAppGetUserInfo");
 
@@ -13,51 +9,58 @@ class UsersService {
       firstName: fetchedUser.first_name,
       lastName: fetchedUser.last_name,
       photo: fetchedUser.photo_100,
-
-      getFullName() {
-        return this.firstName + " " + this.lastName;
-      },
     };
 
     return userVK;
   }
 
-  async getPakoUserInfo(userInfo) {
+  async isPakoUser(userInfo) {
     try {
-      const isUserPako = await fetch("http://localhost:8080/api/v1/isPakoUser", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ userID: userInfo.id }),
-      });
-      return isUserPako;
+      const isUserPako = await fetch(
+        "http://localhost:8080/api/v1/isPakoUser",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ userID: userInfo.id }),
+        }
+      ).then((res) => res.json());
+      return isUserPako.isUser !== -1;
+    } catch (err) {
+      throw new Error(err);
+    }
+  }
+
+  async createPakoUser(userInfo) {
+    try {
+      const newPakoUser = await fetch(
+        "http://localhost:8080/api/v1/createNewPakoUser",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(userInfo),
+        }
+      ).then((res) => res.json());
+
+      console.log(newPakoUser);
+      return newPakoUser;
+    } catch (err) {
+      throw new Error(err);
+    }
+  }
+
+  async getPakoUser(userInfo) {
+    try {
+      const id = userInfo.id;
+      const PakoUser = await fetch("http://localhost:8080/api/v1/pakos/" + id);
+      console.log(PakoUser);
     } catch (err) {
       throw new Error(err);
     }
   }
 }
-
-/*
-const queueCardHandler = async (bool) => {
-    const postMeth = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ selectedItem, userName }),
-    };
-
-    if (bool) {
-      await fetch("http://localhost:8080/queues/delete", postMeth);
-    } else {
-      await fetch("http://localhost:8080/queues/insert", postMeth);
-    }
-
-    getFromServData();
-    setSelectedItem(null);
-  };
-
-*/
 
 export default new UsersService();

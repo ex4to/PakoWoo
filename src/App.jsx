@@ -13,7 +13,7 @@ import {
 import { RoomPage } from "./pages/RoomPage";
 import { QueuePage } from "./pages/QueuePage";
 import { MainPage } from "./pages/MainPage";
-import { Modal } from "./components/Modal";
+import { ModalError } from "./components/ModalError";
 
 const App = () => {
   const [user, setUser] = useState(null);
@@ -24,14 +24,15 @@ const App = () => {
   useEffect(async () => {
     try {
       const VKUser = await usersService.getVKUserInfo();
-      const PakoUser = await usersService.getPakoUserInfo(VKUser);
-      console.log(PakoUser, "Pako");
-      setUser(VKUser);
+      const isPakoUser = await usersService.isPakoUser(VKUser);
+      const PakoUser = isPakoUser
+        ? await usersService.getPakoUser(VKUser)
+        : await usersService.createPakoUser(VKUser);
+      console.log(PakoUser);
+      setUser(PakoUser);
       setPopout(null);
     } catch (err) {
-      setPopout(
-          <p>Whoops</p>
-      );
+      setPopout(<ModalError />);
     }
   }, []);
 

@@ -6,6 +6,7 @@ const ModalError = () => {
   return (
     <div className="modal-container">
       <ModalCard
+        nav="modal-err"
         onClose={() => window.location.reload(false)}
         icon={<Icon56GlobeCrossOutline />}
         className="modal-card"
