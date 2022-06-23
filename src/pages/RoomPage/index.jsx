@@ -19,7 +19,7 @@ const RoomPage = ({ userInfo, switchPagesHandler }) => {
         <Gradient className="gradient">
           <Avatar size={100} src={userInfo?.photo} />
           <Title level="2" weight="2">
-            {userInfo?.getFullName()}
+            {userInfo?.firstName + " " + userInfo?.lastName}
           </Title>
         </Gradient>
       </Group>

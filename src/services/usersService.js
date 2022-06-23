@@ -26,6 +26,7 @@ class UsersService {
           body: JSON.stringify({ userID: userInfo.id }),
         }
       ).then((res) => res.json());
+
       return isUserPako.isUser !== -1;
     } catch (err) {
       throw new Error(err);
@@ -45,7 +46,6 @@ class UsersService {
         }
       ).then((res) => res.json());
 
-      console.log(newPakoUser);
       return newPakoUser;
     } catch (err) {
       throw new Error(err);
@@ -55,8 +55,11 @@ class UsersService {
   async getPakoUser(userInfo) {
     try {
       const id = userInfo.id;
-      const PakoUser = await fetch("http://localhost:8080/api/v1/pakos/" + id);
-      console.log(PakoUser);
+      const PakoUser = await fetch(
+        "http://localhost:8080/api/v1/pakos/" + id
+      ).then((res) => res.json());
+
+      return PakoUser;
     } catch (err) {
       throw new Error(err);
     }

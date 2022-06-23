@@ -16,10 +16,10 @@ import { MainPage } from "./pages/MainPage";
 import { ModalError } from "./components/ModalError";
 
 const App = () => {
-  const [user, setUser] = useState(null);
   const { viewWidth } = useAdaptivity();
+  const [user, setUser] = useState(null);
   const [popout, setPopout] = useState(<ScreenSpinner size="large" />);
-  const [selectedPanel, setSelectedPanel] = useState("room");
+  const [selectedPanel, setSelectedPanel] = useState("main");
 
   useEffect(async () => {
     try {
@@ -28,7 +28,7 @@ const App = () => {
       const PakoUser = isPakoUser
         ? await usersService.getPakoUser(VKUser)
         : await usersService.createPakoUser(VKUser);
-      console.log(PakoUser);
+
       setUser(PakoUser);
       setPopout(null);
     } catch (err) {
@@ -41,10 +41,7 @@ const App = () => {
       <SplitCol spaced={viewWidth && viewWidth > ViewWidth.MOBILE}>
         <View activePanel={selectedPanel}>
           <Panel id="main">
-            <MainPage
-              userInfo={user}
-              switchPagesHandler={(e) => setSelectedPanel(e)}
-            />
+            <MainPage userInfo={user} />
           </Panel>
           <Panel id="room">
             <RoomPage

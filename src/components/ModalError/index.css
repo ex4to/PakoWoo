@@ -4,10 +4,11 @@
     width: 100vw;
     height: 100vh;
     top: 0;
+    left: 0;
 }
 
 .modal-card {
-  position: relative;
+  justify-content: center;
 }
 
 .modal-text {
