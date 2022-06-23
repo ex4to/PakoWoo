@@ -11,10 +11,10 @@ import {
   Header,
 } from "@vkontakte/vkui";
 
-const RoomPage = ({ userInfo, switchPagesHandler }) => {
+const RoomPage = ({ userInfo, roomInfo, switchPagesHandler }) => {
   return (
     <>
-      <PanelHeader>PakoWoo</PanelHeader>
+      <PanelHeader>{roomInfo?.roomName}</PanelHeader>
       <Group separator="hide">
         <Gradient className="gradient">
           <Avatar size={100} src={userInfo?.photo} />

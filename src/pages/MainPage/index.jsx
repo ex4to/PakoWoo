@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import "./index.css";
 import {
   Gradient,
   Avatar,
@@ -8,10 +9,28 @@ import {
   Cell,
   CellButton,
   Title,
+  Text,
   Header,
 } from "@vkontakte/vkui";
+import roomService from "../../services/roomService";
+import { ModalEnter } from "../../components/Modals/ModalEnter";
 
-const MainPage = ({ userInfo }) => {
+const MainPage = ({ userInfo, roomInfoHandler }) => {
+  const [rooms, setRooms] = useState([]);
+  const [modalCards, setModalCards] = useState(null);
+
+  const formCreationHandler = (id, pass, userID) => {
+    roomService.enterPakoRoom(id, pass, userID);
+    setModalCards(null);
+  };
+
+  useEffect(async () => {
+    if (userInfo?.pakoId || modalCards === null) {
+      const fetchedRooms = await roomService.getPakoRooms(userInfo?.pakoId);
+      setRooms(fetchedRooms);
+    }
+  }, [userInfo?.pakoId, modalCards]);
+
   return (
     <>
       <PanelHeader>PakoWoo</PanelHeader>
@@ -23,14 +42,41 @@ const MainPage = ({ userInfo }) => {
           </Title>
         </Gradient>
       </Group>
-      <Group header={<Header mode="secondary">Ваши Комнаты</Header>}>
-        <Cell>One</Cell>
+      <Group
+        separator="hide"
+        header={<Header mode="secondary">Ваши Комнаты</Header>}
+      >
+        <Separator />
+        {rooms.length ? (
+          rooms.map((e) => (
+            <Cell key={e.id} onClick={() => roomInfoHandler(e)}>
+              {e.roomName}
+            </Cell>
+          ))
+        ) : (
+          <Text className="centered-alert">
+            Похоже, вас нет ни в одной комнате
+          </Text>
+        )}
       </Group>
       <Group header={<Header mode="secondary">Меню</Header>}>
         <Separator />
-        <CellButton>Присоединиться к комнате</CellButton>
+        <CellButton
+          onClick={() =>
+            setModalCards(
+              <ModalEnter
+                formHandler={(id, pass) =>
+                  formCreationHandler(id, pass, userInfo?.pakoId)
+                }
+              />
+            )
+          }
+        >
+          Присоединиться к комнате
+        </CellButton>
         <CellButton>Создать комнату</CellButton>
       </Group>
+      {modalCards}
     </>
   );
 };

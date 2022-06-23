@@ -1,6 +1,6 @@
 import { Text, ModalCard } from "@vkontakte/vkui";
 import { Icon56GlobeCrossOutline } from "@vkontakte/icons";
-import "./index.css";
+import "../index.css";
 
 const ModalError = () => {
   return (
