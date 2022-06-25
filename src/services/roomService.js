@@ -33,7 +33,7 @@ class RoomService {
     }
   }
 
-  async createPakoRoom(roomName) {
+  async createPakoRoom(roomName, pakoID) {
     try {
       const isCreated = await fetch(
         "http://localhost:8080/api/v1/rooms/createRoom",
@@ -42,9 +42,10 @@ class RoomService {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ roomName }),
+          body: JSON.stringify({ roomName, pakoID }),
         }
       );
+      return isCreated;
     } catch (err) {
       throw new Error(err);
     }

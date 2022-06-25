@@ -25,7 +25,10 @@ const MainPage = ({ userInfo, roomInfoHandler }) => {
     setModalCards(null);
   };
 
-  const formCreateHandler = () => {};
+  const formCreateHandler = (roomName) => {
+    roomService.createPakoRoom(roomName, userInfo.pakoId);
+    setModalCards(null);
+  };
 
   useEffect(async () => {
     if (userInfo?.pakoId || modalCards === null) {
