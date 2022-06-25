@@ -14,15 +14,18 @@ import {
 } from "@vkontakte/vkui";
 import roomService from "../../services/roomService";
 import { ModalEnter } from "../../components/Modals/ModalEnter";
+import { ModalCreate } from "../../components/Modals/ModalCreate";
 
 const MainPage = ({ userInfo, roomInfoHandler }) => {
   const [rooms, setRooms] = useState([]);
   const [modalCards, setModalCards] = useState(null);
 
-  const formCreationHandler = (id, pass, userID) => {
+  const formEnterHandler = (id, pass, userID) => {
     roomService.enterPakoRoom(id, pass, userID);
     setModalCards(null);
   };
+
+  const formCreateHandler = () => {};
 
   useEffect(async () => {
     if (userInfo?.pakoId || modalCards === null) {
@@ -66,7 +69,7 @@ const MainPage = ({ userInfo, roomInfoHandler }) => {
             setModalCards(
               <ModalEnter
                 formHandler={(id, pass) =>
-                  formCreationHandler(id, pass, userInfo?.pakoId)
+                  formEnterHandler(id, pass, userInfo?.pakoId)
                 }
               />
             )
@@ -74,7 +77,17 @@ const MainPage = ({ userInfo, roomInfoHandler }) => {
         >
           Присоединиться к комнате
         </CellButton>
-        <CellButton>Создать комнату</CellButton>
+        <CellButton
+          onClick={() =>
+            setModalCards(
+              <ModalCreate
+                formHandler={(roomName) => formCreateHandler(roomName)}
+              />
+            )
+          }
+        >
+          Создать комнату
+        </CellButton>
       </Group>
       {modalCards}
     </>

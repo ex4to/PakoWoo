@@ -32,6 +32,23 @@ class RoomService {
       throw new Error(err);
     }
   }
+
+  async createPakoRoom(roomName) {
+    try {
+      const isCreated = await fetch(
+        "http://localhost:8080/api/v1/rooms/createRoom",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ roomName }),
+        }
+      );
+    } catch (err) {
+      throw new Error(err);
+    }
+  }
 }
 
 export default new RoomService();
