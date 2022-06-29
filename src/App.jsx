@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import usersService from "./services/usersService";
+import usersService from "@/services/usersService";
 
 import {
   useAdaptivity,
@@ -10,10 +10,10 @@ import {
   Panel,
   ScreenSpinner,
 } from "@vkontakte/vkui";
-import { RoomPage } from "./pages/RoomPage";
-import { QueuePage } from "./pages/QueuePage";
-import { MainPage } from "./pages/MainPage";
-import { ModalError } from "./components/Modals/ModalError";
+import { RoomPage } from "@/pages/RoomPage";
+import { QueuePage } from "@/pages/QueuePage";
+import { MainPage } from "@/pages/MainPage";
+import { ModalError } from "@/components/Modals/ModalError";
 
 const App = () => {
   const { viewWidth } = useAdaptivity();
@@ -59,7 +59,7 @@ const App = () => {
               switchPagesHandler={(e) => setSelectedPanel(e)}
             />
           </Panel>
-          <Panel id="second">
+          <Panel id="queue">
             <QueuePage
               switchPagesHandler={(e) => setSelectedPanel(e)}
               userInfo={user}

@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from "react";
-import "./index.css";
+import roomService from "@/services/roomService";
+import { ModalEnter } from "@/components/Modals/ModalEnter";
+import { ModalCreate } from "@/components/Modals/ModalCreate";
+
 import {
   Gradient,
   Avatar,
@@ -12,9 +15,8 @@ import {
   Text,
   Header,
 } from "@vkontakte/vkui";
-import roomService from "../../services/roomService";
-import { ModalEnter } from "../../components/Modals/ModalEnter";
-import { ModalCreate } from "../../components/Modals/ModalCreate";
+
+import "./index.css";
 
 const MainPage = ({ userInfo, roomInfoHandler }) => {
   const [rooms, setRooms] = useState([]);
@@ -25,8 +27,8 @@ const MainPage = ({ userInfo, roomInfoHandler }) => {
     setModalCards(null);
   };
 
-  const formCreateHandler = (roomName) => {
-    roomService.createPakoRoom(roomName, userInfo.pakoId);
+  const formCreateHandler = (roomName, bools) => {
+    if (bools) roomService.createPakoRoom(roomName, userInfo.pakoId);
     setModalCards(null);
   };
 
@@ -44,12 +46,14 @@ const MainPage = ({ userInfo, roomInfoHandler }) => {
         <Gradient className="gradient">
           <Avatar size={100} src={userInfo?.photo} />
           <Title level="2" weight="2">
-            Привет, {userInfo?.firstName}!
+            Привет,{" "}
+            {userInfo?.firstName === undefined ? "Анон" : userInfo?.firstName}!
           </Title>
         </Gradient>
       </Group>
       <Group
         separator="hide"
+        className="rooms-block"
         header={<Header mode="secondary">Ваши Комнаты</Header>}
       >
         <Separator />
@@ -60,9 +64,11 @@ const MainPage = ({ userInfo, roomInfoHandler }) => {
             </Cell>
           ))
         ) : (
-          <Text className="centered-alert">
-            Похоже, вас нет ни в одной комнате
-          </Text>
+          <>
+            <Text className="centered-alert">
+              Похоже, вас нет ни в одной комнате
+            </Text>
+          </>
         )}
       </Group>
       <Group header={<Header mode="secondary">Меню</Header>}>

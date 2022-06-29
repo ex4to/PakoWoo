@@ -7,10 +7,10 @@ import {
   Group,
   Button,
 } from "@vkontakte/vkui";
-import { ListOfQ } from "../components/ListOfQ";
-import { SelectedQ } from "../components/SelectedQ";
-import { CreateQ } from "../components/CreateQ";
-import "../assets/queue.css";
+import { ListOfQ } from "@/components/ListOfQ";
+import { SelectedQ } from "@/components/SelectedQ";
+import { CreateQ } from "@/components/CreateQ";
+import "@/assets/queue.css";
 
 const QueuePage = ({ switchPagesHandler, userInfo }) => {
   const [selectedTab, setSelectedTab] = useState("one");
